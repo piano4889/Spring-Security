@@ -28,6 +28,8 @@ out/
 application-jwt.properties
 application-oauth.properties
 
+
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
