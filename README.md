@@ -13,7 +13,7 @@
 
 ## 주요 스택
 *  Spring Security
-*  Srping Mail
+*  Spring Mail
 *  log4j2
 *  JsonWebtoken(JWT)
 *  Lombok
