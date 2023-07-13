@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.security.board.mapper.BoardMapper"> <!-- DAO 링크 -->
+
+    <insert id="insertBoard" useGeneratedKeys="true" keyProperty="idx" parameterType="Board">
+        INSERT INTO board(
+             title,
+             content,
+             writer)
+        VALUES (
+                #{title},
+                #{content},
+                #{writer})
+    </insert>
+
+    <select id="getBoardList" resultType="Board">
+        SELECT idx,
+               title,
+               content,
+               writer,
+               regdate
+        FROM board
+        ORDER BY idx DESC
+    </select>
+
+    <select id="getOneBoard" resultType="Board" parameterType="long">
+        SELECT idx,
+               title,
+               content,
+               writer,
+               regdate
+        FROM board
+        WHERE IDX = #{idx}
+    </select>
+
+    <update id="updateBoard" parameterType="Board">
+    UPDATE board
+        SET TITLE = #{title},
+            CONTENT = #{content},
+            WRITER = #{writer}
+        WHERE IDX = #{idx}
+    </update>
+
+    <delete id="deleteBoard" parameterType="long">
+        DELETE
+        FROM board
+        WHERE IDX = #{idx}
+    </delete>
+
+
+</mapper>

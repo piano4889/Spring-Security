@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.security.board.mapper.FileMapper"> <!-- DAO 링크 -->
+
+    <insert id="insertFiles" parameterType="File" useGeneratedKeys="true" keyProperty="fileIdx">
+        INSERT INTO file(idx,
+                         originName,
+                         saveName,
+                         uploadPath,
+                         folderPath)
+        VALUES (#{idx},
+                #{originName},
+                #{saveName},
+                #{uploadPath},
+                #{folderPath})
+    </insert>
+
+    <select id="getOneFile" parameterType="long" resultType="File">
+        SELECT f.fileIdx,
+               f.idx,
+               f.originName,
+               f.saveName,
+               f.uploadPath,
+               f.folderPath
+        FROM file f
+                 INNER JOIN board b
+                            ON b.idx = f.idx
+        WHERE 1 = 1
+#         AND f.fileIdx = #{fileIdx}
+          AND f.idx = #{idx}
+    </select>
+
+    <select id="getFileList" resultType="File" parameterType="long">
+
+    </select>
+
+    <update id="updateBoard" parameterType="File">
+
+    </update>
+
+    <delete id="deleteBoard" parameterType="long">
+
+    </delete>
+
+
+</mapper>

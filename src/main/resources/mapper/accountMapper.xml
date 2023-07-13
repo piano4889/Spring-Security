@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hello.security.account.mapper.AccountMapper"> <!-- DAO 링크 -->
+
+    <insert id="createAccount" parameterType="Account">
+        INSERT INTO account(
+            id,
+            password
+        )
+        VALUES(
+                  #{id},
+                  #{password}
+              )
+    </insert>
+    <select id="findOneAccountById" resultType="Account">
+        SELECT
+            a.id,
+            a.password,
+            a.isAccountNonExpired,
+            a.isAccountNonLocked,
+            a.isCredentialsNonExpired,
+            a.isEnabled
+#                 r.authority_name as authorities
+        FROM account a
+#         INNER JOIN roles r
+#             ON m.id = r.id
+        WHERE 1=1
+          AND a.id = #{id}
+    </select>
+
+    <select id="readAuthorities" resultType="string">
+        SELECT
+            r.authority_name AS authorities
+        FROM account a
+        INNER JOIN role r
+            ON a.roleNum = r.member_roleNum
+        WHERE 1=1
+          AND a.id = #{id}
+    </select>
+
+<!--    Social Account-->
+    <insert id="saveSocialAccount">
+        INSERT INTO socialAccount(
+                                  email,
+                                  nickname)
+        VALUES (#{email}, #{nickname})
+    </insert>
+
+    <select id="findKaKaoAccountById" parameterType="string" resultType="KakaoAccount">
+        SELECT email,
+               nickname
+        FROM socialAccount
+        WHERE email = #{email}
+    </select>
+
+    <select id="readAuthoritiesFromSocial" parameterType="string" resultType="string">
+        SELECT
+            r.authority_name AS authorities
+        FROM socialAccount s
+                 INNER JOIN role r
+                            ON s.roleNum = r.member_roleNum
+        WHERE 1=1
+          AND s.email = #{email}
+    </select>
+
+</mapper>

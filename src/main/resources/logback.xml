@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <!-- Appender, 출력 형식 지정 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy.MM.dd HH:mm:ss.SSS} {%thread} %-5level %logger{5} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <!-- SQL문 로그, ? 표시 -->
+    <logger name="jdbc.sqlonly" level="WARN"/>
+
+    <!--SQL 실행 시간-->
+    <logger name="jdbc.sqltiming" level="DEBUG"/>
+
+    <!--ResultSet을 제외한 모든 JDBC 호출 정보-->
+    <logger name="jdbc.audit" level="ERROR"/>
+
+    <!--ResultSet을 포함한 모든 JDBC 호출 정보-->
+    <logger name="jdbc.resultset" level="ERROR"/>
+
+    <!--조회된 table 정보-->
+    <logger name="jdbc.resultsettable" level="ON"/>
+
+    <!--열려있는 모든 번호와 연결 수립 및 해제 이벤트를 기록-->
+    <logger name="jdbc.connection" level="WARN"/>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>
